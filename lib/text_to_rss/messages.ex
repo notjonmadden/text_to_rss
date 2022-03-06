@@ -15,25 +15,27 @@ defmodule TextToRss.Messages do
 
   def receive_webhook(%{"NumMedia" => num_media} = message) do
     image_count = String.to_integer(num_media)
-    image_uris =
-      for i <- 0..image_count-1 do message["MediaUrl#{i}"] end
-      |> Enum.filter(&absolute_http_uri?/1)
+    image_data =
+      for i <- 0..image_count-1 do %{url: message["MediaUrl#{i}"], type: message["MediaContentType#{i}"]} end
+      |> Enum.filter(& absolute_http_uri?(&1.url))
 
-    if (Enum.any?(image_uris)) do
+    if (Enum.any?(image_data)) do
       Task.async(fn ->
-        Enum.map(image_uris, &insert_image_message(&1, message))
+        Enum.map(image_data, &insert_image_message(&1, message))
       end)
     end
 
     {:ok}
   end
 
-  defp insert_image_message(image_uri, message) do
+  defp insert_image_message(image_data, message) do
     %ImageMessage{}
     |> ImageMessage.changeset(%{
-      url: image_uri,
+      url: image_data.url,
+      mime_type: image_data.type,
       from: message["From"],
-      to: message["To"]
+      to: message["To"],
+      size: 1,
     })
     |> Repo.insert()
   end

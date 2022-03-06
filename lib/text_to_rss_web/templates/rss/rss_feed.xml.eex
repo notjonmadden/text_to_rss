@@ -12,7 +12,7 @@
       <% _ -> %>
         <title>Shared Image</title>
         <description>Shared Image</description>
-        <enclosure url="<%= item.url %>" length="1" type="image/png" />
+        <enclosure url="<%= item.url %>" length="<%= item.size %>" type="<%= item.mime_type %>" />
       <% end %>
       <link><%= item.url %></link>
       <pubDate><%= item.inserted_at %></pubDate>
