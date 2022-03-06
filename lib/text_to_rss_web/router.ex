@@ -25,6 +25,12 @@ defmodule TextToRssWeb.Router do
     post "/incoming_sms", TwilioController, :sms_webhook
   end
 
+  scope "/rss", TextToRssWeb do
+    pipe_through :api
+
+    get "/feed.xml", RssController, :rss_feed
+  end
+
   # Enables LiveDashboard only for development
   #
   # If you want to use the LiveDashboard in production, you should put
