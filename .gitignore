@@ -32,3 +32,5 @@ text_to_rss-*.tar
 npm-debug.log
 /assets/node_modules/
 
+# sensitive local environment variables
+*.secret.exs

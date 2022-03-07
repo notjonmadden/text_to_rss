@@ -43,6 +43,9 @@ if config_env() == :prod do
     ],
     secret_key_base: secret_key_base
 
+  config :text_to_rss, filestack_api_key: System.get_env("FILESTACK_API_KEY")
+
+
   # ## Using releases
   #
   # If you are doing OTP releases, you need to instruct Phoenix
