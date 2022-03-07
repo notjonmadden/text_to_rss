@@ -22,6 +22,7 @@ defmodule TextToRssWeb.Router do
   scope "/api", TextToRssWeb do
     pipe_through :api
 
+    get "/health", HealthController, :index
     post "/incoming_sms", TwilioController, :sms_webhook
   end
 
