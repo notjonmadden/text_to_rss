@@ -14,15 +14,20 @@ defmodule TextToRssWeb.Router do
     plug :accepts, ["json"]
   end
 
-  # scope "/", TextToRssWeb do
-  #   pipe_through :browser
-  # end
+  pipeline :health do
+    plug :accepts, ["html"]
+  end
+
+  scope "/", TextToRssWeb do
+    pipe_through :health
+
+    get "/health", HealthController, :index
+  end
 
   # Other scopes may use custom stacks.
   scope "/api", TextToRssWeb do
     pipe_through :api
 
-    get "/health", HealthController, :index
     post "/incoming_sms", TwilioController, :sms_webhook
   end
 
