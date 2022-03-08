@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<channel>
-  <title>Shared Links and Images</title>
-  <link>https://www.google.com</link>
-  <description>Shared Links and Images</description>
-  <%= for item <- @items do %>
-    <item>
-      <%= case item do %> 
-      <% %{title: title} -> %>
-        <title><%= title %></title>
-        <description>Shared Link</description>
-      <% _ -> %>
-        <title>Shared Image</title>
-        <description>Shared Image</description>
-        <enclosure url="<%= item.url %>" length="<%= item.size %>" type="<%= item.mime_type %>" />
-      <% end %>
-      <link><%= item.url %></link>
-      <pubDate><%= item.inserted_at %></pubDate>
-    </item>
-  <% end %>
-</channel>
+<rss version="2.0">
+  <channel>
+    <title>Shared Links and Images</title>
+    <link>https://www.google.com</link>
+    <description>Shared Links and Images</description>
+    <%= for item <- @items do %>
+      <item>
+        <%= case item do %>
+        <% %{title: title} -> %>
+          <title><%= title %></title>
+          <description>Shared Link</description>
+        <% _ -> %>
+          <title>Shared Image</title>
+          <description>Shared Image</description>
+          <enclosure url="<%= item.url %>" length="<%= item.size %>" type="<%= item.mime_type %>" />
+        <% end %>
+        <link><%= item.url %></link>
+        <pubDate><%= item.inserted_at %></pubDate>
+      </item>
+    <% end %>
+  </channel>
+</rss>
