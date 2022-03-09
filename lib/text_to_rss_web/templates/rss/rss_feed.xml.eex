@@ -9,10 +9,10 @@
         <%= case item do %>
         <% %{title: title} -> %>
           <title><%= title %></title>
-          <description>Shared Link</description>
+          <description>At some point I'll put something useful here.</description>
         <% _ -> %>
-          <title>Shared Image</title>
-          <description>Shared Image</description>
+          <title>Screenshot</title>
+          <description></description>
           <enclosure url="<%= item.url %>" length="<%= item.size %>" type="<%= item.mime_type %>" />
         <% end %>
         <link><%= item.url %></link>
