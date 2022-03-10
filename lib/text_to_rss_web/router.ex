@@ -14,16 +14,6 @@ defmodule TextToRssWeb.Router do
     plug :accepts, ["json"]
   end
 
-  pipeline :health do
-    plug :accepts, ["html"]
-  end
-
-  scope "/", TextToRssWeb do
-    pipe_through :health
-
-    get "/health", HealthController, :index, log: false
-  end
-
   # Other scopes may use custom stacks.
   scope "/api", TextToRssWeb do
     pipe_through :api
