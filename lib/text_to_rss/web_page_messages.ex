@@ -5,7 +5,7 @@ defmodule TextToRss.WebPageMessages do
   alias Floki
 
   def ingest(uri, message) do
-    Task.async(fn ->
+    Task.start(fn ->
       title = scrape(uri)
 
       store(uri, title, message)

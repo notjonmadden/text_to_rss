@@ -3,7 +3,7 @@ defmodule TextToRss.ImageMessages do
   alias TextToRss.Messages.ImageMessage
 
   def ingest(image_uris, message) do
-    Task.async(fn -> image_uris |> upload() |> store(message) end)
+    Task.start(fn -> image_uris |> upload() |> store(message) end)
   end
 
   defp upload(uris) do
