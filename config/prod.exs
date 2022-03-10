@@ -14,7 +14,16 @@ config :text_to_rss, TextToRssWeb.Endpoint,
   cache_static_manifest: "priv/static/cache_manifest.json"
 
 # Do not print debug messages in production
-config :logger, level: :info
+config :logger,
+  level: :debug,
+  backends: [LogflareLogger.HttpBackend]
+
+config :logflare_logger_backend,
+  url: "https://api.logflare.app", # https://api.logflare.app is configured by default and you can set your own url
+  level: :info, # Default LogflareLogger level is :info. Note that log messages are filtered by the :logger application first
+  flush_interval: 1_000, # minimum time in ms before a log batch is sent
+  max_batch_size: 50, # maximum number of events before a log batch is sent
+  metadata: :all # optionally you can drop keys if they exist with `metadata: [drop: [:list, :keys, :to, :drop]]`
 
 # ## SSL Support
 #

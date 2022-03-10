@@ -47,6 +47,10 @@ if config_env() == :prod do
   config :text_to_rss, filestack_api_key: System.get_env("FILESTACK_API_KEY")
 
 
+config :logflare_logger_backend,
+  api_key: System.get_env("LOGFLARE_API_KEY"),
+  source_id: System.get_env("LOGFLARE_SOURCE_ID")
+
   # ## Using releases
   #
   # If you are doing OTP releases, you need to instruct Phoenix

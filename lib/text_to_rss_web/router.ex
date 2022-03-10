@@ -21,7 +21,7 @@ defmodule TextToRssWeb.Router do
   scope "/", TextToRssWeb do
     pipe_through :health
 
-    get "/health", HealthController, :index
+    get "/health", HealthController, :index, log: false
   end
 
   # Other scopes may use custom stacks.
