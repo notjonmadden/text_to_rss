@@ -50,7 +50,8 @@ defmodule TextToRss.MixProject do
       {:plug_cowboy, "~> 2.5"},
       {:tesla, "~> 1.4"},
       {:hackney, "~> 1.17"},
-      {:floki, "~> 0.32.0"}
+      {:floki, "~> 0.32.0"},
+      {:logflare_logger_backend, "~> 0.11.0"}
     ]
   end
 
