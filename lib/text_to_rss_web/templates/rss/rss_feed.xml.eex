@@ -1,23 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0">
-  <channel>
-    <title>Shared Links and Images</title>
-    <link>https://www.google.com</link>
-    <description>Shared Links and Images</description>
-    <%= for item <- @items do %>
-      <item>
+<feed
+  xmlns="http://www.w3.org/2005/Atom"
+  xmlns:webfeeds="http://webfeeds.org/rss/1.0"
+>
+  <id><%= Routes.rss_path(@conn, :rss_feed) %></id>
+  <title>Jon and Jessie's Text to RSS Feed</title>
+  <author>
+    <name>Jon Madden</name>
+    <email>notjonmadden@gmail.com</email>
+    <uri>https://github.com/notjonmadden</uri>
+  </author>
+  <link rel="self" href="<%= Routes.rss_path(@conn, :rss_feed) %>" />
+  <icon><%= TextToRssWeb.Endpoint.url %>/images/sms.png</icon>
+  <webfeeds:icon><%= TextToRssWeb.Endpoint.url %>/images/sms.png</webfeeds:icon>
+  <webfeeds:accentColor>1982FC</webfeeds:accentColor>
+  <%= if @feed_updated_at do %>
+    <updated><%= @feed_updated_at %></updated>
+  <% end %>
+  <%= for item <- @items do %>
+    <entry>
+        <id><%= item.url %></id>
+        <link href="<%= item.url %>" />
+        <published><%= item.inserted_at %></published>
+
         <%= case item do %>
         <% %{title: title} -> %>
           <title><%= title %></title>
-          <description>At some point I'll put something useful here.</description>
+          <content type="xhtml"></content>
         <% _ -> %>
           <title>Screenshot</title>
-          <description></description>
-          <enclosure url="<%= item.url %>" length="<%= item.size %>" type="<%= item.mime_type %>" />
+          <content type="xhtml">
+            <div xmlns="http://www.w3.org/1999/xhtml">
+              <img src="<%= item.url %>" width="300px" />
+            </div>
+          </content>
         <% end %>
-        <link><%= item.url %></link>
-        <pubDate><%= item.inserted_at %></pubDate>
-      </item>
-    <% end %>
-  </channel>
-</rss>
+    </entry>
+  <% end %>
+</feed>
