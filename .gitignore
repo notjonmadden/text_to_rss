@@ -34,3 +34,5 @@ npm-debug.log
 
 # sensitive local environment variables
 *.secret.exs
+
+.DS_Store
